@@ -1,31 +1,39 @@
-/*import express from 'express';
-import { MongoDBURL, PORT } from "./config.js";
-import mongoose from "mongoose";*/
+
+import express, { Request, Response } from 'express';
+/*import { MongoDBURL, PORT } from "./config.js";*/
+import mongoose from "mongoose";
+import UserModel from "./schemas/users";
 
 console.log("Hi There!");
 
-const express = require('express')
+/*const express = require('express')*/
 const cors = require('cors');
 const app =express()
 
 
-const mongoose = require('mongoose');
-const UserModel = require('./src/schemas/users.js');
+/*const mongoose = require('mongoose');*/
+/*const UserModel = require('./users.js');*/
 
 app.use(express.json())
 app.use(cors());
-mongoose.connect("mongodb+srv://rick119:rick119merntut1@cluster0.0ztzylx.mongodb.net/merntut?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb+srv://rick119:rick119merntut1@cluster0.0ztzylx.mongodb.net/merntut?retryWrites=true&w=majority&appName=Cluster0")
+.then(()=>{
+    console.log("MONGODB connected succeassfully")
+})
+.catch((err)=>{
+    console.log("MONGODB error: ",err)
+})
 
-async function getData(req, res) {
+async function getData(req:Request, res:Response) :Promise<void>{
     try {
         const data = await UserModel.find(); // Find all documents
         res.json(data); // Send the data as JSON response
     } catch (error) {
-        res.status(500).send(error.message); // Handle any errors
+        res.status(500).send(error); // Handle any errors
     }
 }
 
-async function createData(req,res){
+async function createData(req:Request,res:Response):Promise<void>{
     const user = req.body;
     const newUser = new UserModel(user);
     await newUser.save();
@@ -35,6 +43,7 @@ async function createData(req,res){
 
 app.get("/getUsers",getData)
 app.post("/createUsers",createData)
+
 app.listen(3001,()=>{
     console.log("Server running perfectly")
 });
