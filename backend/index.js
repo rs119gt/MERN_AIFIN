@@ -10,7 +10,7 @@ const app =express()
 
 
 const mongoose = require('mongoose');
-const UserModel = require('./users.js');
+const UserModel = require('./src/schemas/users.js');
 
 app.use(express.json())
 app.use(cors());

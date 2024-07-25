@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useState, useEffect } from 'react'
 import  Axios  from 'axios'
 interface User {
@@ -34,11 +34,11 @@ const Add = () => {
     
     return(
       <>
-      <div>
+      <div className='container row d-flex' >
           {listofUsers.map((user)=>{
             return(
-              <div className='container ' style={{width:480,background:'grey'}}>
-              <div className= "card mb-5" >
+              <div className='container mt-3 rounded' style={{width:480,background:'grey'}}>
+              <div className= "card mb-3 mt-3" >
                 <div className="card-body">
                 <h2>Name: {user.name}</h2>
                 <h2>Age: {user.age}</h2>
