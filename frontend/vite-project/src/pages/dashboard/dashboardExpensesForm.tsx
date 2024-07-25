@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react'
 import {useUser} from '@clerk/clerk-react'
+import Axios from 'axios'
 const dashboardExpensesForm = () => {
   const [description,setDescription]=useState("");
   const [amount,setAmount]=useState<number>(0);
@@ -17,6 +18,11 @@ const dashboardExpensesForm = () => {
       category:category,
       payment:payment,
     };
+    Axios.post("http://localhost:3001/createRecord", createRecord)
+    .then(()=>{
+      alert("Success!");
+    });
+
 
     setDescription("")
     setAmount(0)

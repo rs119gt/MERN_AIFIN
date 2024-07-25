@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 /*import { MongoDBURL, PORT } from "./config.js";*/
 import mongoose from "mongoose";
 import UserModel from "./schemas/users";
+import dashboardExpensesModel from './schemas/financeRecordsSchema';
 
 console.log("Hi There!");
 
@@ -18,7 +19,7 @@ app.use(express.json())
 app.use(cors());
 mongoose.connect("mongodb+srv://rick119:rick119merntut1@cluster0.0ztzylx.mongodb.net/merntut?retryWrites=true&w=majority&appName=Cluster0")
 .then(()=>{
-    console.log("MONGODB connected succeassfully")
+    console.log("MONGODB connected successfully")
 })
 .catch((err)=>{
     console.log("MONGODB error: ",err)
@@ -43,6 +44,15 @@ async function createData(req:Request,res:Response):Promise<void>{
 
 app.get("/getUsers",getData)
 app.post("/createUsers",createData)
+
+/*dashboard*/
+async function createRecord (req:Request,res:Response):Promise<void>{
+const record = req.body;
+const newRecord = new dashboardExpensesModel(record);
+newRecord.save()
+res.json(record)
+}
+app.post("/createRecord",createRecord)
 
 app.listen(3001,()=>{
     console.log("Server running perfectly")
