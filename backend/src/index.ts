@@ -52,6 +52,19 @@ const newRecord = new dashboardExpensesModel(record);
 newRecord.save()
 res.json(record)
 }
+
+async function getRecord(req: Request, res: Response): Promise<void>{
+try{
+const data=await dashboardExpensesModel.find();
+res.json(data)
+
+}
+catch(err){
+res.status(404).send(err)
+}
+}
+
+app.get("/getRecord",getRecord)
 app.post("/createRecord",createRecord)
 
 app.listen(3001,()=>{

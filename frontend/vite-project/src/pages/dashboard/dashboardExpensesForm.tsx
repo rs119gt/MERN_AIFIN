@@ -1,13 +1,16 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useUser} from '@clerk/clerk-react'
 import Axios from 'axios'
 const dashboardExpensesForm = () => {
+  
   const [description,setDescription]=useState("");
-  const [amount,setAmount]=useState<number>(0);
+  const [amount,setAmount]=useState<number>();
   const [category,setCategory]=useState("");
   const [payment,setPayment]=useState("");
   const {user}=useUser()
+
+
   const handleSubmit=(event:React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
     const createRecord={
@@ -29,6 +32,8 @@ const dashboardExpensesForm = () => {
     setCategory("")
     setPayment("")
   };
+
+
   return (
     <>
     
