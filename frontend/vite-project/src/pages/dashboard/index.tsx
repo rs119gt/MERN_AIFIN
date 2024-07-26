@@ -15,7 +15,7 @@ const dashboard = () => {
       <SignInButton/>
     </SignedOut>
     </nav>
-    <div>
+    <div className="mt-5">
         <h1>Welcome {user?.firstName} ! Here are your expenses</h1>
     </div>
     <DashboardExpensesForm/>

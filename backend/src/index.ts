@@ -1,6 +1,6 @@
 
 import express, { Request, Response } from 'express';
-/*import { MongoDBURL, PORT } from "./config.js";*/
+import { MongoDBURL, PORT } from "./config";
 import mongoose from "mongoose";
 import UserModel from "./schemas/users";
 import dashboardExpensesModel from './schemas/financeRecordsSchema';
@@ -17,7 +17,7 @@ const app =express()
 
 app.use(express.json())
 app.use(cors());
-mongoose.connect("mongodb+srv://rick119:rick119merntut1@cluster0.0ztzylx.mongodb.net/merntut?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(MongoDBURL)
 .then(()=>{
     console.log("MONGODB connected successfully")
 })
@@ -55,6 +55,8 @@ res.json(record)
 
 async function getRecord(req: Request, res: Response): Promise<void>{
 try{
+//const userId=req.query.userId as string
+//const data=await dashboardExpensesModel.findById({userId});
 const data=await dashboardExpensesModel.find();
 res.json(data)
 
@@ -67,7 +69,7 @@ res.status(404).send(err)
 app.get("/getRecord",getRecord)
 app.post("/createRecord",createRecord)
 
-app.listen(3001,()=>{
+app.listen(PORT,()=>{
     console.log("Server running perfectly")
 });
 /*
